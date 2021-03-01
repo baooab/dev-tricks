@@ -11,11 +11,15 @@ npm i
 开发
 
 ```bash
-$ npm run docs:dev
+npm run docs:dev
 ```
 
 部署
 
 ```bash
-deoply.sh
+# windows
+deploy.sh
+
+# Mac
+bash deploy.sh
 ```
