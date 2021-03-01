@@ -1,5 +1,9 @@
 # 如何将 VitePress 部署到 GitHub Pages
 
+::: tip 目录
+[[toc]]
+:::
+
 VitePress 基于 Vite 构建，比 VuePress 好的一点就是快，因为 Vite 是基于 Rollup.js 构建，VuePress 则是基于 webpack 构建。
 
 根据官方 [Getting Started][1] 和 [Deploying][2] 两节内容就能达到 90% 的完成度，本文就是为了讲清楚剩下的 10%——也就是部署的坑点所在。
