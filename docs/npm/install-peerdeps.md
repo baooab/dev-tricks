@@ -12,6 +12,8 @@ npx install-peerdeps eslint-config-airbnb --dev --registry=https://registry.npm.
 这里需要指定 registry 地址，否则会走默认的 npm registry 地址：https://registry.npmjs.org/
 :::
 
+下面是安装后的 package.json 内容：
+
 ```json
 "devDependencies": {
     "eslint": "^7.2.0",
@@ -23,12 +25,13 @@ npx install-peerdeps eslint-config-airbnb --dev --registry=https://registry.npm.
 },
 ```
 
-## 作为 pependencies 安装：
-
+## 作为 pependencies 安装
 
 ```bash
 npx install-peerdeps eslint-config-airbnb --registry=https://registry.npm.taobao.org/
 ```
+
+下面是安装后的 package.json 内容：
 
 ```json
 "dependencies": {

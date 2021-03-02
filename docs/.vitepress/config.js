@@ -32,6 +32,10 @@ function getGuideSidebar() {
                     link: '/weekly/issue-38'
                 },
                 {
+                    text: '如何使用指定了 peerDependencies 的 npm 包',
+                    link: '/npm/install-peerdeps'
+                },
+                {
                     text: '如何将 VitePress 部署到 GitHub Pages',
                     link: '/git/vitepress-deploy-to-github'
                 }
