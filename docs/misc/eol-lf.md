@@ -32,9 +32,16 @@ git config --global core.autocrlf false
 }
 ```
 
+四、eslint
+
+```
+/*eslint linebreak-style: ["error", "unix"]*/
+```
+
 
 参考链接：
 
 - https://stackoverflow.com/questions/52404044/changing-file-eol-with-vscode-extension-api
 - https://docs.github.com/cn/github/using-git/configuring-git-to-handle-line-endings#global-settings-for-line-endings
 - https://www.typescriptlang.org/tsconfig#newLine
+- http://eslint.cn/docs/rules/linebreak-style
