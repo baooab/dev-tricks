@@ -8,7 +8,7 @@
 
 一、VSCode
 
-设置中
+Settings 中设置
 
 ```
 "files.eol": "\n"
