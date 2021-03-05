@@ -22,6 +22,8 @@
 git config --global core.autocrlf false
 ```
 
+如需区分文件名大小写，可设置 `git config --global core.ignorecase true`
+
 三、TypeScript
 
 ```
