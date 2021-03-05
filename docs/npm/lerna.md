@@ -50,3 +50,7 @@ baz postversion
 foo postversion
 lerna success version finished
 ```
+
+会发现，执行 lerna version 指令的时候，前后会执行两个生命周期指令：preversion 和 postversion。
+
+还能发现，preversion 的执行顺序是沿着依赖树的最底层往上层去的，但是 postversion 就不是按照这个顺序（按照打印结果，是按照字母表顺序执行的）。
