@@ -1,4 +1,4 @@
-# 将文件换行符设置成 LF
+# 将开发环境的文件换行符设置成 LF
 
 在 Windows 和 Mac 写代码时，默认使用的换行符是不一样的。Windows 上是 `\r\n`（CRLF），Mac 上是 `\n`（LF）。
 
@@ -10,7 +10,7 @@
 
 Settings 中设置
 
-```
+```json
 "files.eol": "\n"
 ```
 
@@ -18,7 +18,7 @@ Settings 中设置
 
 二、Git
 
-```
+```bash
 git config --global core.autocrlf false
 ```
 
@@ -26,7 +26,7 @@ git config --global core.autocrlf false
 
 三、TypeScript
 
-```
+```json
 {
   "compilerOptions": {
     "newLine": "lf"
@@ -36,10 +36,13 @@ git config --global core.autocrlf false
 
 四、eslint
 
-```
-/*eslint linebreak-style: ["error", "unix"]*/
+```js
+linebreak-style: ["error", "unix"]
 ```
 
+```js
+/*eslint linebreak-style: ["error", "unix"]*/
+```
 
 参考链接：
 

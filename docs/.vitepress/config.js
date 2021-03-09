@@ -28,6 +28,14 @@ function getGuideSidebar() {
             text: '最近更新',
             children: [
                 {
+                    text: '每周分享第 39 期',
+                    link: '/weekly/issue-39'
+                },
+                {
+                    text: '将开发环境的文件换行符设置成 LF',
+                    link: '/misc/eol-lf'
+                },
+                {
                     text: '每周分享第 38 期',
                     link: '/weekly/issue-38'
                 },
