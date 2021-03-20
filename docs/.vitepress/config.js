@@ -28,6 +28,10 @@ function getGuideSidebar() {
             text: '最近更新',
             children: [
                 {
+                    text: '每周分享第 40 期',
+                    link: '/weekly/issue-40'
+                },
+                {
                     text: '每周分享第 39 期',
                     link: '/weekly/issue-39'
                 },
