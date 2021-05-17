@@ -1,1 +1,0 @@
-import{o as e,c as r,a}from"./app.d2ac5229.js";const t='{"title":"Dev Tricks","description":"","frontmatter":{},"relativePath":"index.md","lastUpdated":1621214652504}',o={},n=a('',4);o.render=function(a,t,o,l,s,i){return e(),r("div",null,[n])};export default o;export{t as __pageData};
