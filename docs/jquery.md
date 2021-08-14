@@ -143,7 +143,6 @@ jQuery.extend = function () {
             var clone = [];
           } else if (propValueIsPlainObject && !jQuery.isPlainObject(originValue)) {
             var clone = {};
-          // 只在原始值和覆盖值的数据类型相同时，才进行有效深复制
           } else {
             var clone = originValue;
           }
