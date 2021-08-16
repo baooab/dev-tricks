@@ -1,10 +1,16 @@
 # jQuery 源码讲解 
 
-### jQuery.extend() 方法
+> 更新：2021/08/16 重新组织文章，更好地组织内容。
 
-`jQuery.extend()` 方法用来扩展目标对象属性。
+jQuery 的源码涵盖了特别多的内容，某些方法的实现在查看时会看到有特别繁琐的地方，很大程度上是由于历史债务问题。为了保持完全向前兼容，不得已做出的折中选择。
 
-### 经典用法
+如何讲解源码？当然首先我想到的就是**先把 jQuery 源码中普遍使用的方法先说明一番**。比如，我选择首先讲解的 `jQuery.extend()` 方法——这个方法，不仅对外用来补充插件系统，还在内部代码中广泛在使用。
+
+### jQuery.extend()/jQuery.fn.extend() 方法
+
+`jQuery.extend()` 方法用来扩展目标对象属性。作用类似于 ES6 中的 `Object.assign()` 方法，不过结果是还是有较大区别的。
+
+#### 经典用法
 
 ```ts
 const defaults = { foo: 'foo' };
@@ -12,7 +18,7 @@ const options = { bar: 'bar', baz: undefined };
 $.extend({}, defaults, options); // { foo: 'foo', bar: 'bar' }
 ```
 
-### 参数说明
+#### 参数说明
 
 第一个参数叫“目标对象”，后面的参数叫“来源参数”。
 
@@ -21,7 +27,7 @@ $.extend({}, defaults, options); // { foo: 'foo', bar: 'bar' }
 1. 如果来源参数中某个属性值是 `undefined`，那么这个属性不会被赋值到目标对象上
 1. 后面的来源参数会覆盖前面来源参数的同名属性
 
-### 简单实现
+#### 简单实现
 
 ```ts {24,29-31}
 jQuery.extend = function () {
@@ -66,9 +72,11 @@ jQuery.extend = function () {
 
 到此，我们实现了一个浅复制方法。
 
-### 实现深复制
+#### 实现深复制
 
 但还不够，`jQuery.extend()` 方法还支持了另一种参数传入方式，来支持深复制。
+
+不过需要注意的是，jQuery 只会对纯对象和数组做深度复制，其他类型的数据则走的时候浅复制。
 
 ```ts
 var target = {};
@@ -163,13 +171,16 @@ jQuery.extend = function () {
 }
 ```
 
-<details>  
-<summary>辅助方法</summary>
+### 基础方法
+
+#### 数组方法
+
+jQuery 一开始就声明了一个空的数组字面量，然后从这个字面量上得到数组原生方法。
+
+接下来内部就可以直接通过变量的形式使用这些原生方法了。
 
 ```ts
 var arr = [];
-
-var getProto = Object.getPrototypeOf;
 
 var slice = arr.slice;
 
@@ -179,21 +190,64 @@ var flat = arr.flat ? function( array ) {
 	return arr.concat.apply( [], array );
 };
 
-
 var push = arr.push;
 
 var indexOf = arr.indexOf;
+```
+
+### 对象方法
+
+除了数组方法，jQuery 还在内部把对象相关的原生方法保存了一下。
+
+```ts
+// 获取原型
+var getProto = Object.getPrototypeOf;
 
 var class2type = {};
 
+// 用于得到数据类型
 var toString = class2type.toString;
 
+// 是否是对象自有属性?
 var hasOwn = class2type.hasOwnProperty;
 
+// 有别于 Object.prototype.toString, Function.prototype.toString 方法会把函数源代码打印出来
 var fnToString = hasOwn.toString;
 
 var ObjectFunctionString = fnToString.call( Object );
+```
 
+这里的 class2type 对象最终会被填充成下面这种形式：
+
+```ts
+{
+  "[object Array]": "array",
+  "[object Boolean]": "boolean",
+  "[object Date]": "date",
+  "[object Error]": "error",
+  "[object Function]": "function",
+  "[object Number]": "number",
+  "[object Object]": "object",
+  "[object RegExp]": "regexp",
+  "[object String]": "string"
+}
+```
+
+实现代码类似于：
+
+```ts
+var class2type = {};
+
+jQuery.each("Boolean Number String Function Array Date RegExp Object Error".split(" "), function(i, name) {
+	class2type[ "[object " + name + "]" ] = name.toLowerCase();
+});
+```
+
+关于 `jQuery.each()` 方法的实现，可以参照本篇中的介绍。
+
+### 判断参数类型
+
+```ts
 var isFunction = function isFunction( obj ) {
 
   // Support: Chrome <=57, Firefox <=52
@@ -206,7 +260,9 @@ var isFunction = function isFunction( obj ) {
   return typeof obj === "function" && typeof obj.nodeType !== "number" &&
     typeof obj.item !== "function";
 };
+```
 
+```ts
 jQuery.extend({
   isPlainObject: function( obj ) {
     var proto, Ctor;
@@ -230,5 +286,3 @@ jQuery.extend({
   }
 })
 ```
-
-</details>  
