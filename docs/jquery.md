@@ -1,6 +1,8 @@
 # jQuery 源码讲解 
 
 > 更新：2021/08/16 重新组织文章，更好地组织内容。
+> 
+> 更新：2021/08/17 补充 jQeury.extend() 方法的说明，画龙点睛的一笔
 
 jQuery 的源码涵盖了特别多的内容，某些方法的实现在查看时会看到有特别繁琐的地方，很大程度上是由于历史债务问题。为了保持完全向前兼容，不得已做出的折中选择。
 
@@ -8,14 +10,14 @@ jQuery 的源码涵盖了特别多的内容，某些方法的实现在查看时�
 
 ### jQuery.extend()/jQuery.fn.extend() 方法
 
-`jQuery.extend()` 方法用来扩展目标对象属性。作用类似于 ES6 中的 `Object.assign()` 方法，不过结果是还是有较大区别的。
+`jQuery.extend()/jQuery.fn.extend()` 方法用来扩展目标对象属性。作用类似于 ES6 中的 `Object.assign()` 方法，不过结果是还是有较大区别的。
 
 #### 经典用法
 
 ```ts
 const defaults = { foo: 'foo' };
 const options = { bar: 'bar', baz: undefined };
-$.extend({}, defaults, options); // { foo: 'foo', bar: 'bar' }
+jQuery.extend({}, defaults, options); // { foo: 'foo', bar: 'bar' }
 ```
 
 #### 参数说明
@@ -34,7 +36,7 @@ jQuery.extend = function () {
   // 第一个参数是“目标对象”
   var target = arguments[0] || {};
   // 后续参数都是“来源对象”
-  var sources = [].slice.call(arguments, 1);
+  var sources = slice.call(arguments, 1);
 
   // 目标对象必须是个对象或者是函数
   if (typeof target !== "object" && !isFunction( target )) {
@@ -111,7 +113,7 @@ jQuery.extend = function () {
   if (typeof target === 'boolean') {
     deep = target;
 
-    // 找到真正的目标对象
+    // 第二个参数自动变成目标对象
     target = arguments[1] || {};
     // 来源对象的起始索引位置也有同步变更下
     i++;
@@ -168,6 +170,43 @@ jQuery.extend = function () {
   }
 
   return target;
+}
+```
+
+#### 画龙点睛的一笔
+
+jQuery 提供的 `.extend()` 方法，其实不仅能支持能作为 jQuey 上的静态方法用（`jQuery.extend()`）；也能作为实例方法用（`jQuery.fn.extend()`）。
+
+当 `.extend()` 方法传入两个以上的参数时，我们能行参数里获得目标对象。
+
+`.extend()` 方法还有一个微妙的地方在于，当你只传入一个参数的时候，能根据你使用方法的方式不同，扩展 `jQuery` 或者 `jQuery.fn` 对象——这就是 jQuery 插件的工作原理。
+
+```ts
+// 为 jQuery 对象扩展 foo 方法
+jQuery.extend({ foo() { console.log('foo') } });
+
+// 为 jQuery.fn 对象扩展 foo 方法
+jQuery.fn.extend({ foo() { console.log('foo') } });
+```
+
+而这个功能的实现，会发现非常简单，是一个点睛之笔：
+
+```ts
+...
+
+// Handle case when target is a string or something (possible in deep copy)
+if ( typeof target !== "object" && !isFunction( target ) ) {
+	target = {};
+}
+
+// 只有一个参数的时候，将调用对象（jQuery 或 jQuery.fn）作为目标对象
+if ( i === length ) {
+	target = this;
+	i--;
+}
+
+for ( ; i < length; i++ ) {
+	...
 }
 ```
 
@@ -245,7 +284,17 @@ jQuery.each("Boolean Number String Function Array Date RegExp Object Error".spli
 
 关于 `jQuery.each()` 方法的实现，可以参照本篇中的介绍。
 
+## jQuery.each()/jQuery.fn.each() 方法
+
+// 
+
 ### 判断参数类型
+
+#### 是否是函数
+
+按照平常的写法，一般我们会认为只要判断 `typeof obj === 'function'` 为 `true` 就够了。
+
+但 jQuery 也考虑到了复杂的浏览器环境和 DOM 节点。
 
 ```ts
 var isFunction = function isFunction( obj ) {
@@ -261,6 +310,12 @@ var isFunction = function isFunction( obj ) {
     typeof obj.item !== "function";
 };
 ```
+
+#### 是否是纯对象
+
+同样的，按照我们的理解。只要判断 `Object.prototype.toString.call(obj) === '[object Object]'` 为 `true` 就可以了。
+
+但这方面 jQuery 就想的比较多。
 
 ```ts
 jQuery.extend({
