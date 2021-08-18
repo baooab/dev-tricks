@@ -210,6 +210,65 @@ for ( ; i < length; i++ ) {
 }
 ```
 
+## jQuery.each()/jQuery.fn.each() 方法
+
+```ts
+jQuery.extend({
+	each: function( obj, callback ) {
+		var length, i = 0;
+
+		if ( isArrayLike( obj ) ) {
+			length = obj.length;
+			for ( ; i < length; i++ ) {
+				if ( callback.call( obj[ i ], i, obj[ i ] ) === false ) {
+					break;
+				}
+			}
+		} else {
+			for ( i in obj ) {
+				if ( callback.call( obj[ i ], i, obj[ i ] ) === false ) {
+					break;
+				}
+			}
+		}
+
+		return obj;
+	},
+})
+
+function isArrayLike( obj ) {
+
+	// Support: real iOS 8.2 only (not reproducible in simulator)
+	// `in` check used to prevent JIT error (gh-2145)
+	// hasOwn isn't used here due to false negatives
+	// regarding Nodelist length in IE
+	var length = !!obj && "length" in obj && obj.length,
+		type = toType( obj );
+
+	if ( isFunction( obj ) || isWindow( obj ) ) {
+		return false;
+	}
+
+	return type === "array" || length === 0 ||
+		typeof length === "number" && length > 0 && ( length - 1 ) in obj;
+}
+
+var isWindow = function isWindow( obj ) {
+	return obj != null && obj === obj.window;
+};
+
+function toType( obj ) {
+	if ( obj == null ) {
+		return obj + "";
+	}
+
+	// Support: Android <=2.3 only (functionish RegExp)
+	return typeof obj === "object" || typeof obj === "function" ?
+		class2type[ toString.call( obj ) ] || "object" :
+		typeof obj;
+}
+```
+
 ### 基础方法
 
 #### 数组方法
@@ -283,10 +342,6 @@ jQuery.each("Boolean Number String Function Array Date RegExp Object Error".spli
 ```
 
 关于 `jQuery.each()` 方法的实现，可以参照本篇中的介绍。
-
-## jQuery.each()/jQuery.fn.each() 方法
-
-// 
 
 ### 判断参数类型
 
