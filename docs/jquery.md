@@ -3,6 +3,7 @@
 > 更新：2021/08/16 重新组织文章，更好地组织内容。
 > 
 > 更新：2021/08/17 补充 jQeury.extend() 方法的说明，画龙点睛的一笔
+> 更新：2021/08/18 补充 jQeury.each() 
 
 jQuery 的源码涵盖了特别多的内容，某些方法的实现在查看时会看到有特别繁琐的地方，很大程度上是由于历史债务问题。为了保持完全向前兼容，不得已做出的折中选择。
 
@@ -212,7 +213,13 @@ for ( ; i < length; i++ ) {
 
 ## jQuery.each()/jQuery.fn.each() 方法
 
+jQuery.each() 分两种情况遍历：一个是类数组，一个是对象。每遍历到一个数组元素或者属性的时候，都会调用一次回调函数。不过与原生 .each() 方法不同的是，jQuery.each() 方法是可以在遍历中途终止的，只要你在回调函数中返回 `false` 就可以。
+
 ```ts
+jQuery.fn = jQuery.prototype = {
+	return jQuery.each( this, callback );
+}
+
 jQuery.extend({
 	each: function( obj, callback ) {
 		var length, i = 0;
