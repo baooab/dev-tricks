@@ -8,7 +8,7 @@ In TypeScript 2.0, it has become significantly easier to acquire type informatio
 
 [![Egghead lesson: Install TypeScript declarations from](https://mariusschulz.com/images/content/egghead_lesson_typescript_declarations-2x.nam2cekuwu.imm.png)](https://egghead.io/lessons/typescript-install-typescript-declarations-from-npm?af=9g63dt)
 
-Installing Type Declaration Packages from npm
+从 npm 下载类型声明文件
 ------------------------------------------------------------------------------------------------
 
 Let's assume you want to use Lodash in one of your TypeScript projects:
@@ -27,7 +27,7 @@ Note how the type declaration package is named after the original npm package, p
 
 The benefit of using npm for managing type information is that type declaration packages will be listed in your `package.json` alongside your other dependencies. In addition, they can be properly versioned, just like any other npm package. Plus, you only need a single package manager, npm, that is set up already anyway.
 
-Where Do the Type Declaration Files Go?
+类型声明文件在哪里？
 -----------------------------------------------------------------------------------
 
 Like any other npm package, the type declaration packages are installed in the `node_modules` folder. Within it, there's a `@types` folder which contains all typings. In the above example, it'll contain a `lodash` folder, within which you'll find the `index.d.ts` file with all the Lodash type information:
@@ -36,9 +36,11 @@ Like any other npm package, the type declaration packages are installed in the `
 
 The TypeScript compiler understands this convention and will pick up type declarations within the `@types` folder automatically. There's no need to update the `tsconfig.json` or any other configuration file.
 
-Who Creates the Type Declaration Packages?
+是谁创建了类型声明包？
 -----------------------------------------------------------------------------------------
 
 Behind the scenes, the type declaration packages are automatically created by the [types-publisher](https://github.com/Microsoft/types-publisher) service. It publishes the contents of the [DefinitelyTyped](https://github.com/DefinitelyTyped/DefinitelyTyped) repository to npm. That way, typings contributed to DefinitelyTyped end up on npm, ready for consumption.
+
+在背后，类型声明包会由 [types-publisher](https://github.com/Microsoft/types-publisher) 服务自动创建。它将 [DefinitelyTyped](https://github.com/DefinitelyTyped/DefinitelyTyped) 仓库的内容发布到 npm。这样，贡献到 DefinitelyTyped 仓库代码最终被推送到 npm，等待被消费。
 
 本篇文章是 [TypeScript Evolution](https://mariusschulz.com/blog/series/typescript-evolution) 系列中的一篇。
