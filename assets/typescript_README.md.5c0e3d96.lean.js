@@ -1,1 +1,0 @@
-import{o as e,c as t,a as o}from"./app.808b26de.js";const r='{"title":"TypeScript Evolution 系列文章","description":"","frontmatter":{},"relativePath":"typescript/README.md","lastUpdated":1640607600848}',l={},i=o('',3);l.render=function(o,r,l,a,p,n){return e(),t("div",null,[i])};export default l;export{r as __pageData};
