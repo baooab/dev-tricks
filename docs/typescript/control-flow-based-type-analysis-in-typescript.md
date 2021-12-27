@@ -35,16 +35,16 @@ command.join(" "); // Here, command is of type 'string[]'
 ```ts
 function composeCommand(command: string | string[]): string {
     if (typeof command === "string") {
-    return command;
+        return command;
     }
 
     return command.join(" ");
 }
 ```
 
-The compiler now understands that if the `command` parameter is of type `string`, the function always returns early from within the `if`\-statement. Because of the early exit behavior, the type of the `command` parameter is narrowed to `string[]` after the `if`\-statement. As a result, the call to the `join` method type-checks correctly.
+编译器现在理解，`if` 语句里的 `command` 是 `string` 类型，进入这个分支函数会提前返回。如果没走这个分支，那么 `command` 只可能是 `string[]` 类型，所以在调用 `join` 函数的时候，被认定为类型正确。
 
-Prior to TypeScript 2.0, the compiler was not able to deduce the above semantics. Therefore, the `string` type was not removed from the union type of the `command` variable, and the following compile-time error was produced:
+TypeScript 2.0 之前，编译器是无法推断出上述语义的。因此，`string` 类型不会从 `command` 变量所属的联合类型中移除，就会产生如下的编译期错误：
 
 ```
 Property 'join' does not exist on type 'string | string[]'.
@@ -53,7 +53,7 @@ Property 'join' does not exist on type 'string | string[]'.
 严格空值检查
 ------------------------------------------
 
-Control flow based type analysis is particularly helpful when used in conjunction with nullable types, which are represented using union types including `null` or `undefined`. Usually, we need to check whether a variable of a nullable type has a non-null value before we can work with it:
+基于控制流的类型分析与空类型结合使用的时候特别有用。比如，我们在操作值之前，通常会做一个是否为空的判断，这样就能把可为空变量的空值情况排除掉：
 
 ```ts
 type Person = {
@@ -74,9 +74,9 @@ function getFullName(person: Person): string {
 }
 ```
 
-Here, the `Person` type defines a non-nullable `firstName` property and a nullable `lastName` property. If we compose a full name out of both, we need to check whether `lastName` is `null` or `undefined` to avoid appending the string `"null"` or `"undefined"` to the first name.
+上例中，`Person` 类型定义了一个非空属性 `firstName` 和可为空属性 `lastName`。在将它们组合成一个完整姓名的时候，我们需要先判断 `lastName` 为 `null` 或 `undefined` 的情况，这样就能避免输出结果中出现 `"null"` 或 `"undefined"`。
 
-For the purpose of clarity, I added the `undefined` type to the union type of the `lastName` property, although that's a redundant piece of information. In strict null checking mode, the `undefined` type is added automatically to the union type of optional properties, so we don't have to explicitly write it out. For more information, please refer to my previous post about [non-nullable types](/blog/non-nullable-types-in-typescript).
+为了清楚起见，我给属性 `lastName` 所在的联合类型加了一个 `undefined`，虽然这么写是没必要的。在严格空值检查模式下，`undefined` 类型会自动加入可选属性的联合类型上，因此无需显式写出来。更多这方面的内容，可以参考 [非空类型](./non-nullable-types-in-typescript.md) 这篇文章。
 
 明确赋值分析
 --------------------------------------------------------------
