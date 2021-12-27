@@ -26,9 +26,8 @@ command.join(" "); // Here, command is of type 'string[]'
 
 注意，所有的代码都处在同一个作用域中。同样，类型检查器也会根据变量 `command` 所处的位置，判定它应该是什么具体类型：
 
-*   `"pwd"` 赋值为字符串后，就不再可能是一个字符串数组了（联合类型中唯一的另一个选项）。因此，TypeScript 认为 `command` 是一个 `string` 类型的变量，也就可以调用 `toLowserCase()` 方法了。
-*   After the string array `["ls", "-la"]` is assigned, the `command` variable is no longer treated as a string. It is now known to be a string array, so the call to the `join` method succeeds.
-*   同理，`"pwd"` 赋值为字符串数组后，就不再可能是一个字符串了。因此，就调用数组方法 `join()` 了。
+*   `"command"` 赋值为字符串 `"pwd"` 后，就不再可能是一个字符串数组了（联合类型中唯一的另一个选项）。因此，TypeScript 认为 `command` 是一个 `string` 类型的变量，也就可以调用 `toLowserCase()` 方法了。
+*   同理，`command` 赋值为字符串数组 `["ls", "-la"]` 后，就不再可能是一个字符串了。因此，就调用数组方法 `join()` 了。
 
 同样是根据控制流分析，下面函数里的类型检查在 TypeScript 2.0 看来也是正确的：
 
