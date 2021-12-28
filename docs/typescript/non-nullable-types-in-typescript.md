@@ -79,7 +79,7 @@ isMarried = undefined; // Error
 使用联合类型构建可为空变量
 --------------------------------------------------------------------------------
 
-由于启用严格空值检查后，各个类型默认都是非空的，所以，我们需要明确告诉类型检查器一个变量是可为空的。这可以通过将 `null` 和 `undefined` 混入联合类型做到的：
+由于启用严格空值检查后，各个类型默认都是非空的，所以，我们需要明确告诉类型检查器一个变量是可为空的。这可以通过将 `null` 和 `undefined` 混入联合类型做到：
 
 ```ts
 let name: string | null;
@@ -102,7 +102,7 @@ let jane: User = { firstName: "Jane", lastName: undefined };
 let john: User = { firstName: "John", lastName: "Doe" };
 ```
 
-我们可以通过在 `lastName` 后面加 `?` 的方式将属性标记为可选的。除此之外，`undefined` 会自动添加到联合类型。因此，下面的赋值都是类型正确（type-correct）的：
+可以通过在 `lastName` 后面加 `?` 的方式将属性标记为可选的。而且，`undefined` 会自动添加到联合类型。因此，下面的赋值都是类型正确（type-correct）的：
 
 ```ts
 type User = {
@@ -156,7 +156,7 @@ function getLength(s: string | null) {
 调用可为空函数
 --------------------------------------------------------------------------------------
 
-如果一个函数是可为空的，直接调用它就会导致编译期错误（compil-time error）。以下面的 `callback` 参数为例：
+如果一个函数是可为空的，直接调用它就会导致编译期错误。以下面的 `callback` 参数为例：
 
 ```ts
 function doSomething(callback?: () => void) {
@@ -175,7 +175,7 @@ function doSomething(callback?: () => void) {
 }
 ```
 
-如果喜欢，还能通过 `typeof` 操作符的返回值确保不是空值：
+如果喜欢，还能通过 `typeof` 操作符确保返回值不是空值：
 
 ```ts
 function doSomething(callback?: () => void) {
