@@ -1,1 +1,0 @@
-import{o as n,c as s,a}from"./app.808b26de.js";const p='{"title":"lerna 学习笔记","description":"","frontmatter":{},"relativePath":"npm/lerna.md","lastUpdated":1640870522852}',e={},r=a('',12);e.render=function(a,p,e,o,l,t){return n(),s("div",null,[r])};export default e;export{p as __pageData};
