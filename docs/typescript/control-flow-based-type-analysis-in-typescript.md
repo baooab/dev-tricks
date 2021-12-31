@@ -1,4 +1,4 @@
-TypeScript：基于控制流的类型分析
+TypeScript 中基于控制流的类型分析
 ==============================================
 
 > Marius Schulz, [“Control Flow Based Type Analysis in TypeScript”](https://mariusschulz.com/blog/control-flow-based-type-analysis-in-typescript), September 30, 2016

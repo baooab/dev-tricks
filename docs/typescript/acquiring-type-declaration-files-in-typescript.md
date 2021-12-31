@@ -1,4 +1,4 @@
-TypeScript：获取类型声明文件
+TypeScript 项目中如何获取类型声明文件？
 ==============================================
 
 > Marius Schulz, [“Acquiring Type Declaration Files in TypeScript”](https://mariusschulz.com/blog/acquiring-type-declaration-files-in-typescript), October 23, 2016
@@ -38,6 +38,6 @@ TypeScript 编译器查找类型声明时，会找到 `@types` 目录，自动�
 是谁创建了类型声明包？
 -----------------------------------------------------------------------------------------
 
-在背后，类型声明包会由 [types-publisher](https://github.com/Microsoft/types-publisher) 服务自动创建。它将 [DefinitelyTyped](https://github.com/DefinitelyTyped/DefinitelyTyped) 仓库的内容发布到 npm 上。这样，贡献到 DefinitelyTyped 仓库的代码最终会被推送到 npm，等待被消费。
+在背后，类型声明包由 [types-publisher](https://github.com/Microsoft/types-publisher) 服务自动创建，它将 [DefinitelyTyped](https://github.com/DefinitelyTyped/DefinitelyTyped) 仓库的内容发布到 npm 上。这样，贡献到 DefinitelyTyped 仓库的代码最终会被推送到 npm，等待被消费。
 
 本篇文章是 [TypeScript Evolution](https://mariusschulz.com/blog/series/typescript-evolution) 系列中的一篇。
