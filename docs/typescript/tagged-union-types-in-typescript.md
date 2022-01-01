@@ -90,7 +90,7 @@ function describePaymentMethod(method: PaymentMethod) {
 
 这种程度的 [控制流分析](./control-flow-based-type-analysis-in-typescript.md) 使得使用标签联合类型更加顺畅。使用最少的 TypeScript 语法，仍能享受到类型检查和代码补全的好处。嗯，的确是一场非常愉悦的编码体验。
 
-使用标记联合类型构建 Redux Actions
+使用标记联合类型构建 Redux Action
 --------------------------------------------------------------------------------------------------
 
 标签联合类型的另一个用例就是在你的 TypeScript 项目用到 Redux 的时候。再来看另一个快速示例：包含一个 model、两个 action 和一个 reducer，是一个待办程序（相信你已经猜到了）。
