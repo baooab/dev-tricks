@@ -1,1 +1,0 @@
-import{o as n,c as e,a as s}from"./app.808b26de.js";const a='{"title":"将开发环境的文件换行符设置成 LF","description":"","frontmatter":{},"relativePath":"misc/eol-lf.md","lastUpdated":1641020578280}',o={},t=s('',18);o.render=function(s,a,o,p,r,i){return n(),e("div",null,[t])};export default o;export{a as __pageData};
