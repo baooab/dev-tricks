@@ -3,21 +3,26 @@ TypeScript 中的标记联合类型
 
 > Marius Schulz, [“Tagged Union Types in TypeScript”](https://mariusschulz.com/blog/tagged-union-types-in-typescript), November 3, 2016
 
-
 TypeScript 2.0 implements a rather useful feature: _tagged union types_, which you might know as _sum types_ or _discriminated union types_ from other programming languages. A tagged union type is a union type whose member types all define a discriminant property of a literal type.
 
+TypeScript 2.0 中实现了一个相当有用的特性：_标记联合类型_，在其他语言中类似特性还称为 _总类型（sum types）_ 或 _区别联合类型（discriminated union types）_。标记联合类型是一个联合类型，其成员类型里都用一个字面量类型定义了一个区分属性。
+
 Because the above definition is rather theoretical, we're going to be looking at two examples that illustrate how tagged union types would be used in practice.
+
+上述的定义有些抽象，接下来我们看两个例子说明下标记联合类型的使用场景。
 
 使用标记联合类型构建支付方法
 ------------------------------------------------------------------------------------------------------
 
-Let's say we want to model the following payment methods that users of a system can choose from:
+假设我们要构建下述可供用户选择的支付方式：
 
-*   **Cash** without further information,
-*   **PayPal** with a given email address, or
-*   **Credit card** with a given card number and security code.
+*   **现金（Cash）** 不需要额外的其他信息，
+*   **PayPal** 需要提供一个邮件地址，或者
+*   **信用卡（Credit card）** 需要提供卡号和安全码。
 
 For each of these payment methods, we can create a TypeScript interface:
+
+针对每一种支付方式，我们创建一个 TypeScript 接口：
 
 ```ts
 interface Cash {
@@ -38,13 +43,19 @@ interface CreditCard {
 
 Note that, in addition to the required information, each type has a `kind` property — the so-called _discriminant property_. It's of a [string literal type](/blog/string-literal-types-in-typescript) in each case here. We'll look at the discriminant property in a minute.
 
+注意，处理必要的信息，每个类型都有一个 `kind` 属性——所谓的 _区别属性_。是一个字符串字面量。我们马上就能看到。
+
 Let's now also define a `PaymentMethod` type that is the union of the three types we just defined. This way, we're stating that every payment method must have exactly one of the three given _constituent types_:
+
+我们还定义一个 `PaymentMethod` 类型，它是由上述三种类型组合而成的联合类型。我们就声明了每种支付方法必须恰好是三个 _组合类型（constituent types）_ 中的一个：
 
 ```ts
 type PaymentMethod = Cash | PayPal | CreditCard;
 ```
 
 Now that our types are in place, let's write a function that accepts a payment method and returns a human-readable description of it:
+
+现在有了支付类型，我们再创建一个接收此类型的函数，它返回可供人阅读的一段支付方式描述：
 
 ```ts
 function describePaymentMethod(method: PaymentMethod) {
