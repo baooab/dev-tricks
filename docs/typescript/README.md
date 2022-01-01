@@ -6,4 +6,4 @@ by Marius Schulz
 1. [基于控制流的类型分析(Control Flow Based Type Analysis)](./control-flow-based-type-analysis-in-typescript.md)：TypeScript 2.0 新增特性。联合类型变量在经过 `if` 判断后，类型范围会变小。
 1. [获取类型声明文件(Acquiring Type Declaration Files)](./acquiring-type-declaration-files-in-typescript.md)：TypeScript 2.0 后，如果项目中用到了 Lodash 库，想得到类型支持，从 npm 直接安装 `@types/lodash` 声明包即可。
 1. [只读属性(Read-Only Properties)](./read-only-properties-in-typescript.md)：TypeScript 2.0 为类型系统增加了一个 `readonly` 修饰符，用于声明不能被修改的属性。
-1.[标记联合类型(Tagged Union Types)](./tagged-union-types-in-typescript.md): 还是 TypeScript 2.0 引入的一个有用特性。使用联合类型时，每个成员类型都有唯一的一个字面量做区分，让联合类型使用更便捷。
+1. [标记联合类型(Tagged Union Types)](./tagged-union-types-in-typescript.md): 还是 TypeScript 2.0 引入的一个有用特性。使用联合类型时，每个成员类型都有唯一的一个字面量做区分，让联合类型使用更便捷。
