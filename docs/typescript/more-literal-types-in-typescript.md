@@ -3,19 +3,18 @@ TypeScript 2.0 中增加的字面量类型
 
 > Marius Schulz, [“More Literal Types in TypeScript”](https://mariusschulz.com/blog/more-literal-types-in-typescript), November 10, 2016
 
-TypeScript 1.8 introduced [string literal types](/blog/string-literal-types-in-typescript) for restricting variables to a finite set of possible string values. With TypeScript 2.0, literal types are no longer restricted to string literals. The following literal types have been added to the type system:
+TypeScript 1.8 引入了 [字面量类型](https://mariusschulz.com/blog/string-literal-types-in-typescript)，将变量限制为有限的字符串集合。TypeScript 2.0 中又向类型系统中新增了下面三个字面量类型：
 
-*   [Boolean literal types](#boolean-literal-types)
-*   [Numeric literal types](#numeric-literal-types)
-*   [Enum literal types](#enum-literal-types)
+*   [布尔字面量类型](#boolean-literal-types)
+*   [数值字面量类型](#numeric-literal-types)
+*   [枚举字面量类型](#enum-literal-types)
 
-In the following sections, we're going to be looking at a practical example for each of these new literal types.
+接下来，我们将逐个进行讲解，并搭配一些实际的案例。
 
-Boolean Literal Types
 布尔字面量类型
 ------------------------------------------------
 
-The following example defines two constants, `TRUE` and `FALSE`, which hold the values `true` and `false`, respectively:
+下面的例子中定义了两个常量：`TRUE` 和 `FALSE`，分别被赋值 `true` 和 `false`。
 
 ```ts
 const TRUE: true = true; // OK
