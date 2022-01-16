@@ -170,7 +170,7 @@ const httpsPort = getPort("https"); // Type 443
 枚举字面量类型
 ------------------------------------------
 
-最后，我们还可以使用枚举作为字面量类型。接着前面的示例，我们将实现一个函数，该函数从给定的端口（80 或 443）映射到相应的协议（分别是 HTTP 或 HTTPS）。为此，我们首先声明一个[const enum](https://www.typescriptlang.org/docs/handbook/enums.html) 来模拟两个端口号:
+最后，我们还可以使用枚举作为字面量类型。接着前面的示例，我们将实现一个函数，该函数将给定的端口（80 或 443）映射成对应的协议（HTTP 或 HTTPS）。为此，我们首先声明一个[常量枚举类型（const enum）](https://www.typescriptlang.org/docs/handbook/enums.html) 来模拟两个端口号:
 
 ```ts
 const enum HttpPort {
